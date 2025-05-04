@@ -1,0 +1,121 @@
+body {
+    background: linear-gradient(135deg, #ffe6f0, #ffccff);
+    font-family: Arial, sans-serif;
+    color: #660033;
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 140px);
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.inicio-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 140px);
+    text-align: center;
+    padding: 20px;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+.logo-container {
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 50%; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Sombra suave */
+    animation: bounce 2s infinite, rotateLogo 3s infinite; /* Añadimos una rotación */
+    transition: transform 0.3s ease-in-out; /* Transición suave */
+}
+
+.logo:hover {
+    transform: scale(1.1); /* Efecto de escalado al pasar el ratón */
+}
+
+.welcome-container {
+    max-width: 600px;
+    background: rgba(255, 204, 229, 0.8);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 153, 204, 0.8);
+    animation: slideIn 1.5s ease-in-out;
+}
+
+.welcome-container h2 {
+    color: #cc0052;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px #ff99cc;
+    font-size: 2em;
+    animation: textGlow 2s infinite alternate;
+}
+
+.welcome-container p {
+    color: #99004d;
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animación del logo */
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Animación de rotación del logo */
+@keyframes rotateLogo {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Animación de entrada del contenedor */
+@keyframes slideIn {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Animación de brillo en el texto */
+@keyframes textGlow {
+    from {
+        text-shadow: 0 0 10px #ff99cc, 0 0 20px #ff66a3, 0 0 30px #e60073;
+    }
+    to {
+        text-shadow: 0 0 20px #ff66a3, 0 0 30px #e60073, 0 0 40px #cc0052;
+    }
+}
