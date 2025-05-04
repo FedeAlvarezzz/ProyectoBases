@@ -1,3 +1,4 @@
+
 package co.edu.uniquindio.proyectoBases.exceptions;
 
 import org.springframework.http.ResponseEntity;
