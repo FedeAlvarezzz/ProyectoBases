@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${consulta.idConsulta == null ? 'Crear Consulta' : 'Editar Consulta'}">Consulta</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: rgba(64, 58, 62, 0.85);
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-top: 50px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.8); /* fondo oscuro semitransparente */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            color: white; /* texto claro sobre fondo oscuro */
+        }
+
+        .form-label {
+            color: #ad1457;
+        }
+
+        .btn-custom {
+            background-color: #ad1457;
+            color: white;
+            border: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #9c1b47;
+        }
+
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9rem;
+            color: #6d6d6d;
+            text-align: center;
+        }
+
+        .action-links a {
+            color: #ad1457;
+            text-decoration: none;
+        }
+
+        .action-links a:hover {
+            color: #9c1b47;
+        }
+
+        .btn-create {
+            background-color: #ad1457;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+        }
+
+        .btn-create:hover {
+            background-color: #9c1b47;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .form-control, .form-select {
+            border-color: #ad1457;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragmentos :: barraNavegacion}"></div>
+
+<div class="container">
+    <h1 class="fw-bold text-center" style="color: #ad1457;" th:text="${consulta.idConsulta == null ? 'Crear Nueva Consulta' : 'Editar Consulta'}">Consulta</h1>
+
+    <form th:action="@{${accion}}" method="post">
+        <input type="hidden" th:if="${consulta.idConsulta != null}" th:name="idConsulta" th:value="${consulta.idConsulta}"/>
+
+        <div class="mb-3">
+            <label for="medico" class="form-label">Médico:</label>
+            <select id="medico" name="medico.cedula" class="form-select" required>
+                <option value="">Seleccione un médico</option>
+                <option th:each="m : ${medicos}"
+                        th:value="${m.cedula}"
+                        th:text="${m.nombre + ' ' + m.apellido + ' (' + m.cedula + ')'}"
+                        th:selected="${consulta.medico != null and consulta.medico.cedula == m.cedula}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="paciente" class="form-label">Paciente:</label>
+            <select id="paciente" name="paciente.cedula" class="form-select" required>
+                <option value="">Seleccione un paciente</option>
+                <option th:each="p : ${pacientes}"
+                        th:value="${p.cedula}"
+                        th:text="${p.nombre + ' ' + p.apellido + ' (' + p.cedula + ')'}"
+                        th:selected="${consulta.paciente != null and consulta.paciente.cedula == p.cedula}"></option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" class="form-control" th:value="${consulta.fecha}" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="hora" class="form-label">Hora:</label>
+            <input type="time" id="hora" name="hora" class="form-control" th:value="${consulta.hora}" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="valor" class="form-label">Valor:</label>
+            <input type="number" step="0.01" id="valor" name="valor" class="form-control" th:value="${consulta.valor}" required/>
+        </div>
+
+        <div class="mb-3">
+            <label for="motivo" class="form-label">Motivo:</label>
+            <textarea id="motivo" name="motivo" class="form-control" rows="4" required th:text="${consulta.motivo}"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="diagnostico" class="form-label">Diagnóstico:</label>
+            <textarea id="diagnostico" name="diagnostico" class="form-control" rows="4" th:text="${consulta.diagnostico}"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-custom w-100" th:text="${consulta.idConsulta == null ? 'Crear' : 'Actualizar'}"></button>
+    </form>
+
+    <div class="footer">
+        <p>Proyecto SaludFem - Gestión de Consultas</p>
+    </div>
+</div>
+
+<div id="particles-js"></div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = '-1';
+        document.getElementById('particles-js').appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        // Crear partículas aleatorias
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 3 + 1,
+                speedX: Math.random() * 2 - 1,
+                speedY: Math.random() * 2 - 1
+            });
+        }
+
+        // Animación de partículas
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgb(255,0,165)';
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                // Mover partículas
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                // Rebotar en los bordes
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+    });
+</script>
+
+</body>
+</html>

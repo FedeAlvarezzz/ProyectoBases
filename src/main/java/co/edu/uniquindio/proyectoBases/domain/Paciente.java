@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectoBases.domain;
 
+import co.edu.uniquindio.proyectoBases.domain.enums.EstadoUsuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -66,6 +67,13 @@ public class Paciente {
     @Column(name = "contrasena", length = 20, nullable = false)
     private String contrasena;
 
-    //@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL, orphanRemoval = true)
-    //private List<Consulta> consultas;
+    @Column(name = "estado", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EstadoUsuario estado;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private HistoriaClinica historiaClinica;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Consulta> consultas;
 }

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoBases.services.implementations;
 
 import co.edu.uniquindio.proyectoBases.domain.Paciente;
+import co.edu.uniquindio.proyectoBases.domain.enums.EstadoUsuario;
 import co.edu.uniquindio.proyectoBases.repositories.PacienteRepo;
 import co.edu.uniquindio.proyectoBases.services.interfaces.PacienteService;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,7 @@ public class PacienteServiceImpl implements PacienteService {
             throw new RuntimeException("Ya existe un paciente con ese email");
         }
 
+        paciente.setEstado(EstadoUsuario.ACTIVO);
         return pacienteRepo.save(paciente);
     }
 
@@ -49,22 +51,23 @@ public class PacienteServiceImpl implements PacienteService {
             throw new RuntimeException("No existe un paciente con ese email");
         }
 
+        paciente.setEstado(EstadoUsuario.ACTIVO);
         return pacienteRepo.save(paciente);
     }
 
     @Override
     public void eliminarPaciente(Integer cedula) {
 
-        if (!pacienteRepo.existsById(cedula)) {
-            throw new RuntimeException("No existe un paciente con ese cedula");
-        }
+        Paciente paciente = pacienteRepo.findByCedula(cedula)
+                .orElseThrow(() -> new RuntimeException("No existe un paciente con esa cédula"));
 
-        pacienteRepo.deleteById(cedula);
+        paciente.setEstado(EstadoUsuario.ELIMINADO);
+        pacienteRepo.save(paciente);
 
     }
 
     @Override
     public List<Paciente> listarPacientes() {
-        return pacienteRepo.findAll();
+        return pacienteRepo.findByEstado(EstadoUsuario.ACTIVO);
     }
 }
