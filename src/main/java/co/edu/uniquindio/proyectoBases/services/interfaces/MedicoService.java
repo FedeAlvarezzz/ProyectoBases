@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface MedicoService {
     Medico crearMedico(Medico medico);
-    Optional<Medico> obtenerMedico(String cedula);
+    Optional<Medico> obtenerMedico(Integer cedula);
     Medico actualizarMedico(Medico medico);
-    void eliminarMedico(String cedula);
+    void eliminarMedico(Integer cedula);
     List<Medico> listarMedicos();
 }

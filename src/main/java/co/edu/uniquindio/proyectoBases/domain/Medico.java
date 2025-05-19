@@ -1,5 +1,6 @@
 package co.edu.uniquindio.proyectoBases.domain;
 
+import co.edu.uniquindio.proyectoBases.domain.enums.EstadoUsuario;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.*;
@@ -12,10 +13,9 @@ import java.util.List;
 public class Medico {
 
     @Id
-    @NotBlank(message = "La cédula es obligatoria")
-    @Size(min = 5, max = 20, message = "La cédula debe tener entre 5 y 20 caracteres")
+    @NotNull(message = "La cédula es obligatoria")
     @Column(name = "cedula", length = 20, nullable = false, unique = true)
-    private String cedula;
+    private Integer cedula;
 
     @NotBlank(message = "El nombre es obligatorio")
     @Size(max = 100, message = "El nombre no puede exceder los 100 caracteres")
@@ -42,15 +42,14 @@ public class Medico {
     @Column(name = "especialidad", length = 100, nullable = false)
     private String especialidad;
 
-    @NotBlank(message = "El usuario es obligatorio")
-    @Size(min = 5, max = 50, message = "El usuario debe tener entre 5 y 50 caracteres")
-    @Column(name = "usuario", length = 50, nullable = false, unique = true)
-    private String usuario;
-
     @NotBlank(message = "La contraseña es obligatoria")
     @Size(min = 8, max = 100, message = "La contraseña debe tener entre 8 y 100 caracteres")
     @Column(name = "password", length = 100, nullable = false)
     private String password;
+
+    @Column(name = "estado", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private EstadoUsuario estado;
 
     @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Consulta> consultas;

@@ -19,7 +19,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation ("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:3.3.0")
     implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
-    implementation ("com.oracle.database.jdbc:ojdbc8:21.1.0.0")
+    implementation("com.mysql:mysql-connector-j:9.3.0")
     compileOnly("org.projectlombok:lombok")
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
