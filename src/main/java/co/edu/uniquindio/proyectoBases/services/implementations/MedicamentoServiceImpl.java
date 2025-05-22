@@ -24,11 +24,11 @@ public class MedicamentoServiceImpl implements MedicamentoService {
     }
 
     @Override
-    public Optional<Medicamento> obtenerMedicamento(Integer id) {
+    public Medicamento obtenerMedicamento(Integer id) {
         if (!medicamentoRepository.existsById(id)) {
             throw new RuntimeException("No existe un medicamento con ese ID");
         }
-        return medicamentoRepository.findById(id);
+        return medicamentoRepository.findByIdMedicamento(id);
     }
 
     @Override

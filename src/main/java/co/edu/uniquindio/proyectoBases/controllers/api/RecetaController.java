@@ -27,6 +27,8 @@ public class RecetaController {
          return ResponseEntity.ok(receta);
     }
 
-    // @PutMapping("/{id}")
+    //@PutMapping("/{id}")
+
+
 
 }

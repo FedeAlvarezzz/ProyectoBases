@@ -7,6 +7,6 @@ import java.util.Optional;
 
 @Repository
 public interface ExamenRepository extends JpaRepository<Examen, Long> {
-    Optional<Examen> findByIdExamen(Long idExamen);
+    Examen findByIdExamen(Long idExamen);
     boolean existsByIdExamen(Long idExamen);
 }

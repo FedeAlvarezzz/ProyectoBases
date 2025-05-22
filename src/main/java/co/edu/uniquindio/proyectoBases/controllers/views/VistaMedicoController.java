@@ -46,10 +46,10 @@ public class VistaMedicoController {
 
     @GetMapping("/editar/{cedula}")
     public String mostrarFormularioEdicion(@PathVariable Integer cedula, Model model) {
-        Optional<Medico> medicoOpt = medicoService.obtenerMedico(cedula);
+        Medico medico = medicoService.obtenerMedico(cedula);
 
-        if (medicoOpt.isPresent()) {
-            model.addAttribute("medico", medicoOpt.get());
+        if (medico != null) {
+            model.addAttribute("medico", medico);
         } else {
             model.addAttribute("mensajeError", "Médico no encontrado");
             return "error"; // crea una vista error.html o muestra el mensaje en la misma
@@ -73,9 +73,9 @@ public class VistaMedicoController {
 
     @GetMapping("/eliminar/{cedula}")
     public String eliminarMedico(@PathVariable Integer cedula, Model model) {
-        Optional<Medico> medicoOpt = medicoService.obtenerMedico(cedula);
+        Medico medico = medicoService.obtenerMedico(cedula);
 
-        if (medicoOpt.isPresent()) {
+        if (medico != null) {
             medicoService.eliminarMedico(cedula);
             model.addAttribute("mensajeExito", "Médico eliminado exitosamente");
         } else {
@@ -86,10 +86,10 @@ public class VistaMedicoController {
 
     @GetMapping("/{cedula}")
     public String mostrarPerfil(@PathVariable Integer cedula, Model model) {
-        Optional<Medico> medicoOpt = medicoService.obtenerMedico(cedula);
+        Medico medico = medicoService.obtenerMedico(cedula);
 
-        if (medicoOpt.isPresent()) {
-            model.addAttribute("medico", medicoOpt.get());
+        if (medico != null) {
+            model.addAttribute("medico", medico);
         } else {
             model.addAttribute("mensajeError", "Médico no encontrado");
             return "error"; // crea una vista error.html o muestra el mensaje en la misma

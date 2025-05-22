@@ -21,8 +21,8 @@ public class MedicoController {
     }
 
     @GetMapping("/{cedula}")
-    public ResponseEntity<Optional<Medico>> obtenerMedico(@PathVariable Integer cedula) {
-        Optional<Medico> medico = medicoService.obtenerMedico(cedula);
+    public ResponseEntity<Medico> obtenerMedico(@PathVariable Integer cedula) {
+        Medico medico = medicoService.obtenerMedico(cedula);
         return ResponseEntity.ok(medico);
     }
 

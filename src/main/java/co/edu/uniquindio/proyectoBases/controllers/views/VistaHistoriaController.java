@@ -46,15 +46,14 @@ public class VistaHistoriaController {
 
         Paciente paciente = pacienteService.obtenerPaciente(cedulaPaciente);
 
-        /*if (paciente.isPresent()) {
-            historiaClinica.setPaciente(optionalPaciente.get());
+        if (paciente != null) {
+            historiaClinica.setPaciente(paciente);
             historiaClinicaService.crearHistoriaClinica(historiaClinica);
             return "redirect:/historias";
         } else {
             model.addAttribute("mensajeError", "Paciente no encontrado");
             return "error";
-        }*/
-        return "redirect:/historias";
+        }
     }
 
 

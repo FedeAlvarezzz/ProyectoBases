@@ -51,15 +51,14 @@ public class VistaPacienteController {
 
     @GetMapping("/editar/{cedula}")
     public String mostrarFormularioEdicion(@PathVariable Integer cedula, Model model) {
-        Paciente pacienteOpt = pacienteService.obtenerPaciente(cedula);
+        Paciente paciente = pacienteService.obtenerPaciente(cedula);
 
-        /*if (pacienteOpt.isPresent()) {
-            model.addAttribute("paciente", pacienteOpt.get());
+        if (paciente != null) {
+            model.addAttribute("paciente", paciente);
         }else {
             model.addAttribute("mensajeError", "Paciente no encontrado");
             return "error"; // crea una vista error.html o muestra el mensaje en la misma
-        }*/
-
+        }
         return "pacientes/editar";
     }
 
@@ -75,30 +74,29 @@ public class VistaPacienteController {
 
     @GetMapping("/eliminar/{cedula}")
     public String eliminarPaciente(@PathVariable Integer cedula, Model model) {
-        Paciente pacienteOpt = pacienteService.obtenerPaciente(cedula);
+        Paciente paciente = pacienteService.obtenerPaciente(cedula);
 
-        /*if (pacienteOpt.isPresent()) {
+        if (paciente != null) {
             pacienteService.eliminarPaciente(cedula);
             model.addAttribute("mensajeExito", "Paciente eliminado exitosamente");
         } else {
             model.addAttribute("mensajeError", "Paciente no encontrado");
         }
 
-        return "redirect:/pacientes";*/
-        return "pacientes/listar";
+        return "redirect:/pacientes";
     }
 
 
     @GetMapping("/{cedula}")
     public String mostrarPerfilPaciente(@PathVariable Integer cedula, Model model) {
-        Paciente pacienteOpt = pacienteService.obtenerPaciente(cedula);
+        Paciente paciente = pacienteService.obtenerPaciente(cedula);
 
-        /*if (pacienteOpt.isPresent()) {
-            model.addAttribute("paciente", pacienteOpt.get());
+        if (paciente != null) {
+            model.addAttribute("paciente", paciente);
         } else {
             model.addAttribute("mensajeError", "Paciente no encontrado");
             return "error"; // crea una vista error.html o muestra el mensaje en la misma
-        }*/
+        }
 
         return "pacientes/perfil";
     }

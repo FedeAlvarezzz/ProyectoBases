@@ -23,8 +23,8 @@ public class MedicamentoController {
     }
 
     @GetMapping("/obtener-medicamento/{id}")
-    public ResponseEntity<Optional<Medicamento>> obtenerMedicamento(@PathVariable Integer id) {
-        Optional<Medicamento> medicamento = medicamentoService.obtenerMedicamento(id);
+    public ResponseEntity<Medicamento> obtenerMedicamento(@PathVariable Integer id) {
+        Medicamento medicamento = medicamentoService.obtenerMedicamento(id);
         return ResponseEntity.ok(medicamento);
     }
 

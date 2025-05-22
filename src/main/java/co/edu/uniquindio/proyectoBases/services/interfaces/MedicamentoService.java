@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface MedicamentoService {
     Medicamento crearMedicamento(Medicamento medicamento);
 
-    Optional<Medicamento> obtenerMedicamento(Integer id);
+    Medicamento obtenerMedicamento(Integer id);
 
     Medicamento actualizarMedicamento(Medicamento medicamento);
 

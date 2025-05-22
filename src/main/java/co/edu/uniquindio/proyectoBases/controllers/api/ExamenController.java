@@ -22,8 +22,8 @@ public class ExamenController {
     }
 
     @GetMapping("/obtener-examen/{idExamen}")
-    public ResponseEntity<Optional<Examen>> obtenerExamen(@PathVariable Long idExamen) {
-        Optional<Examen> examen = examenService.obtenerExamen(idExamen);
+    public ResponseEntity<Examen> obtenerExamen(@PathVariable Long idExamen) {
+        Examen examen = examenService.obtenerExamen(idExamen);
         return ResponseEntity.ok(examen);
     }
 

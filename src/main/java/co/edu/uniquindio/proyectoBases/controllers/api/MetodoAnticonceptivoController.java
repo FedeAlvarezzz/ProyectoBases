@@ -22,8 +22,8 @@ public class MetodoAnticonceptivoController {
     }
 
     @GetMapping("/obtener/{idMetodo}")
-    public ResponseEntity<Optional<MetodoAnticonceptivo>> obtenerMetodo(@PathVariable String idMetodo) {
-        Optional<MetodoAnticonceptivo> metodo = metodoService.obtenerMetodo(idMetodo);
+    public ResponseEntity<MetodoAnticonceptivo> obtenerMetodo(@PathVariable String idMetodo) {
+        MetodoAnticonceptivo metodo = metodoService.obtenerMetodo(idMetodo);
         return ResponseEntity.ok(metodo);
     }
 

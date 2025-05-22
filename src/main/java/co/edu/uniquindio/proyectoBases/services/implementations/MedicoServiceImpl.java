@@ -31,7 +31,7 @@ public class MedicoServiceImpl implements MedicoService {
     }
 
     @Override
-    public Optional<Medico> obtenerMedico(Integer cedula) {
+    public Medico obtenerMedico(Integer cedula) {
         if (!medicoRepository.existsByCedula(cedula)) {
             throw new RuntimeException("No existe un médico con esa cédula");
         }
@@ -48,8 +48,11 @@ public class MedicoServiceImpl implements MedicoService {
 
     @Override
     public void eliminarMedico(Integer cedula) {
-        Medico medico = medicoRepository.findByCedula(cedula)
-                .orElseThrow(() -> new RuntimeException("No existe un médico con esa cédula"));
+        Medico medico = medicoRepository.findByCedula(cedula);
+        if (medico == null) {
+            throw new RuntimeException("No existe un médico con esa cédula");
+        }
+
 
         medico.setEstado(EstadoUsuario.ELIMINADO);
         medicoRepository.save(medico);

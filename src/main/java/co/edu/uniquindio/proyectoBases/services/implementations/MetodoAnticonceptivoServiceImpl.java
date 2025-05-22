@@ -24,7 +24,7 @@ public class MetodoAnticonceptivoServiceImpl implements MetodoAnticonceptivoServ
     }
 
     @Override
-    public Optional<MetodoAnticonceptivo> obtenerMetodo(String idMetodo) {
+    public MetodoAnticonceptivo obtenerMetodo(String idMetodo) {
         if (!metodoRepo.existsByIdMetodoAnticonceptivo(idMetodo)) {
             throw new RuntimeException("No existe un método anticonceptivo con ese ID");
         }

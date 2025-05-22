@@ -7,7 +7,7 @@ import java.util.Optional;
 
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, String> {
-    Optional<Medico> findByCedula(Integer cedula);
+    Medico findByCedula(Integer cedula);
     boolean existsByCedula(Integer cedula);
     boolean existsByEmail(String email);
 }

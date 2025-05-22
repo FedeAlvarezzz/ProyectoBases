@@ -7,6 +7,7 @@ import java.util.Optional;
 
 @Repository
 public interface MetodoAnticonceptivoRepository extends JpaRepository<MetodoAnticonceptivo, String> {
-    Optional<MetodoAnticonceptivo> findByIdMetodoAnticonceptivo(String idMetodoAnticonceptivo);
+    MetodoAnticonceptivo findByIdMetodoAnticonceptivo(String idMetodoAnticonceptivo);
     boolean existsByIdMetodoAnticonceptivo(String idMetodoAnticonceptivo);
+
 }

@@ -23,7 +23,7 @@ public class ExamenServiceImpl implements ExamenService {
     }
 
     @Override
-    public Optional<Examen> obtenerExamen(Long idExamen) {
+    public Examen obtenerExamen(Long idExamen) {
         if (!examenRepo.existsByIdExamen(idExamen)) {
             throw new RuntimeException("No existe un examen con ese ID");
         }
