@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="pacientes" pageWidth="595" pageHeight="842"
+              columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20" uuid="a6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f">
+
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+
+    <style name="Title" forecolor="#FFFFFF" backcolor="#4F81BD" mode="Opaque" fontName="Arial" fontSize="14" isBold="true"/>
+    <style name="Column header" forecolor="#FFFFFF" backcolor="#4F81BD" mode="Opaque" fontName="Arial" fontSize="12" isBold="true"/>
+    <style name="Detail" mode="Transparent" fontName="Arial" fontSize="10"/>
+
+    <parameter name="createdBy" class="java.lang.String"/>
+
+    <title>
+        <band height="79">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30" uuid="b6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Reporte de Pacientes]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="40" width="555" height="20" uuid="c6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement textAlignment="Center"/>
+                <text><![CDATA[Sistema de Salud Reproductiva]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="0" y="0" width="100" height="30" uuid="d6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Cédula]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="0" width="150" height="30" uuid="e6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nombre]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="250" y="0" width="150" height="30" uuid="f6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Email]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="400" y="0" width="80" height="30" uuid="06d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Teléfono]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="480" y="0" width="75" height="30" uuid="16d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Grupo Sanguíneo]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="25">
+            <textField>
+                <reportElement x="0" y="0" width="100" height="25" uuid="26d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="150" height="25" uuid="36d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{nombre} + " " + $F{apellido}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="0" width="150" height="25" uuid="46d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="400" y="0" width="80" height="25" uuid="56d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="480" y="0" width="75" height="25" uuid="66d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA[$F{grupoSanguineo}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+
+    <pageFooter>
+        <band height="30">
+            <textField>
+                <reportElement x="0" y="0" width="300" height="30" uuid="76d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA["Generado por: " + $P{createdBy}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="300" y="0" width="255" height="30" uuid="86d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement textAlignment="Right" verticalAlignment="Middle"/>
+                <textFieldExpression><![CDATA["Página " + $V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></textFieldExpression>
+            </textField>
+        </band>
+    </pageFooter>
+</jasperReport>

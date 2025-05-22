@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -18,28 +18,20 @@ public class ReportService {
 
     @Autowired
     private ConsultaRepository consultaRepository;
-
     @Autowired
     private PacienteRepo pacienteRepository;
-
     @Autowired
     private MedicoRepository medicoRepository;
-
     @Autowired
     private ExamenRepository examenRepository;
-
     @Autowired
     private HistoriaClinicaRepository historiaClinicaRepository;
-
     @Autowired
     private MetodoAnticonceptivoRepository metodoAnticonceptivoRepository;
-
     @Autowired
     private CicloRepository cicloRepository;
 
-    public String exportReport(String reportFormat, String reportType) throws FileNotFoundException, JRException {
-        String path = "src/main/resources/static/reports";
-
+    public byte[] exportReportToPdf(String reportType) throws FileNotFoundException, JRException {
         // Cargar el archivo .jrxml
         File file = ResourceUtils.getFile("classpath:reports/" + reportType + ".jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
@@ -51,27 +43,28 @@ public class ReportService {
 
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
 
-        if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToHtmlFile(jasperPrint, path + "/" + reportType + ".html");
-        }
-        if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "/" + reportType + ".pdf");
-        }
+        // Exportar a PDF en memoria
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 
-        return "Reporte generado en: " + path + "/" + reportType + "." + reportFormat;
+        return outputStream.toByteArray();
     }
 
     private JRBeanCollectionDataSource getDataSourceForReport(String reportType) {
-        switch(reportType) {
+        switch(reportType.toLowerCase()) {
             case "pacientes":
                 return new JRBeanCollectionDataSource(pacienteRepository.findAll());
             case "consultas":
                 return new JRBeanCollectionDataSource(consultaRepository.findAll());
+            case "consultas-medico":
+                return new JRBeanCollectionDataSource(consultaRepository.findAllWithMedico());
             case "examenes":
                 return new JRBeanCollectionDataSource(examenRepository.findAll());
-            // Agrega más casos según tus reportes
+        //    case "pacientes-completo":
+       //         return new JRBeanCollectionDataSource(pacienteRepository.findAllWithHistorial());
+            // Agrega más casos según necesites
             default:
-                return new JRBeanCollectionDataSource(pacienteRepository.findAll());
+                throw new IllegalArgumentException("Tipo de reporte no soportado: " + reportType);
         }
     }
 }
