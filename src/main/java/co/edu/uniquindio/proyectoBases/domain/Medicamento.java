@@ -41,4 +41,8 @@ public class Medicamento {
     @Size(min = 5, max = 500, message = "Las recomendaciones deben tener entre 5 y 500 caracteres")
     @Column(name = "recomendaciones", length = 500, nullable = false)
     private String recomendaciones;
+
+    @ManyToOne
+    @JoinColumn(name = "id_receta", nullable = false)
+    private Receta receta;
 }

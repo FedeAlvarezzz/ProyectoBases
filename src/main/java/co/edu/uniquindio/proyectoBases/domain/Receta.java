@@ -1,17 +1,14 @@
 package co.edu.uniquindio.proyectoBases.domain;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table( name = "receta" )
@@ -31,5 +28,9 @@ public class Receta {
 
     @Column(name = "observacion", nullable = false)
     private String observacion;
+
+    @OneToMany
+    @JoinColumn(name = "idMedicamento")
+    private List<Medicamento> medicamentos;
 
 }

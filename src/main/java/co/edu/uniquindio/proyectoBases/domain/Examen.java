@@ -39,4 +39,8 @@ public class Examen {
     @Size(max = 100, message = "El tipo de examen no puede exceder los 100 caracteres")
     @Column(name = "tipo_examen", length = 100, nullable = false)
     private String tipoExamen;
+
+    @ManyToOne
+    @JoinColumn(name = "id_consulta", nullable = false)
+    private Consulta consulta;
 }

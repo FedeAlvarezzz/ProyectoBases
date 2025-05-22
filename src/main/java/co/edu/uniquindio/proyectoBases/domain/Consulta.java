@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Getter
 @Setter
@@ -49,4 +50,12 @@ public class Consulta {
     @Column(name = "diagnostico", length = 1000)
     @Size(max = 1000, message = "El diagnóstico no puede exceder los 1000 caracteres")
     private String diagnostico;
+
+    @OneToOne
+    @JoinColumn(name = "id_receta")
+    private Receta receta;
+
+    @OneToMany
+    @JoinColumn(name = "id_examen")
+    private List<Examen> examenes;
 }

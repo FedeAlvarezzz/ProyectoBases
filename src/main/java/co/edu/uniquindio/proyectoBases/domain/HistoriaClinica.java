@@ -34,8 +34,14 @@ public class HistoriaClinica {
     @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL)
     private List<Enfermedad> enfermedades;
 
+    @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL)
+    private List<MetodoAnticonceptivo> metodosAnticonceptivos;
+
     @OneToOne
     @JoinColumn(name = "paciente_id", nullable = false)
     private Paciente paciente;
+
+    @OneToMany(mappedBy = "historiaClinica", cascade = CascadeType.ALL)
+    private List<Embarazo> embarazos;
 
 }
