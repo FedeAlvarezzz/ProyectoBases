@@ -18,6 +18,8 @@ import lombok.Setter;
 public class Medicamento {
 
     @Id
+    @NotBlank(message = "El ID del medicamento es obligatorio")
+    @Size(min = 5, max = 20, message = "El ID del medicamento debe tener entre 5 y 20 caracteres")
     @Column(name = "id_medicamento")
     private Integer idMedicamento;
 
