@@ -29,7 +29,7 @@ public class Ciclo {
     private LocalDate fechaFin;
 
     @Positive(message = "La duración debe ser un número positivo")
-    @Max(value = 12, message = "La duración máxima es de 12 meses")
+    @Max(value = 50, message = "La duración máxima es de 50 dias")
     @Column(name = "duracion", nullable = false)
     private int duracion;
 

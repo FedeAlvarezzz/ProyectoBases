@@ -5,6 +5,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +23,7 @@ public class Receta {
     private Long idReceta;
 
     @Column(name = "fechaEmision", nullable = false)
-    @Size(min = 10, max = 20)
+    @PastOrPresent
     private LocalDate fechaEmision;
 
     @Column(name = "fechaVencimiento", nullable = false)
