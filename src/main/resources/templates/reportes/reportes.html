@@ -4,115 +4,162 @@
     <meta charset="UTF-8">
     <title>Reportes - SaludFem</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            color: rgba(64, 58, 62, 0.85);
-            overflow-x: hidden;
-            background-color: #f8f9fa;
+        :root {
+            --color-primario: #d81b60;
+            --color-secundario: #f8bbd0;
+            --color-texto: #5a3d5c;
         }
 
-        #particles-js {
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #faf5f7;
+            color: var(--color-texto);
+        }
+
+        .particles-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
             z-index: -1;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            opacity: 0.6;
         }
 
-        .card-report {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .report-card {
             border: none;
             border-radius: 15px;
-            background-color: white;
-            margin-bottom: 20px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            background: white;
+            margin-bottom: 25px;
         }
 
-        .card-report:hover {
+        .report-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.12);
         }
 
-        .card-title {
-            color: #880e4f;
+        .report-header {
+            background: linear-gradient(135deg, var(--color-primario) 0%, #ad1457 100%);
+            color: white;
+            padding: 15px 20px;
+            border-bottom: none;
+        }
+
+        .report-body {
+            padding: 20px;
+        }
+
+        .report-title {
+            color: var(--color-primario);
             font-weight: 600;
+            margin-bottom: 10px;
         }
 
         .btn-report {
-            background-color: #d81b60;
+            background-color: var(--color-primario);
             color: white;
             border: none;
             border-radius: 8px;
-            padding: 8px 16px;
+            padding: 8px 20px;
+            font-weight: 500;
             transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-report:hover {
             background-color: #ad1457;
-            color: white;
+            transform: scale(1.02);
         }
 
-        .report-header {
-            background-color: #f8bbd0;
-            color: #880e4f;
-            border-radius: 15px 15px 0 0 !important;
-            font-weight: 600;
-        }
-
-        .container-reports {
+        .main-container {
             background-color: white;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             padding: 30px;
-            margin-top: 30px;
-            margin-bottom: 50px;
+            margin-top: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, var(--color-primario), var(--color-secundario));
+        }
+
+        .section-title {
+            color: var(--color-primario);
+            position: relative;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--color-secundario);
         }
     </style>
 </head>
 <body>
 
-<div id="particles-js"></div>
+<div class="particles-container" id="particles-js"></div>
 
-<div class="container container-reports py-4">
-    <h1 class="text-center mb-4" style="color: #ad1457;">Reportes SaludFem</h1>
-    <p class="text-center mb-5">Genera reportes en formato PDF para tu análisis</p>
+<div class="container main-container py-4">
+    <div class="text-center mb-5">
+        <h1 style="color: var(--color-primario); font-weight: 700;">Reportes SaludFem</h1>
+        <p class="lead">Genera informes detallados en formato PDF</p>
+    </div>
 
     <!-- Reportes Simples -->
-    <div class="card card-report">
-        <div class="card-header report-header">
-            <h5 class="mb-0"><i class="bi bi-card-list me-2"></i>Reportes Básicos</h5>
+    <div class="report-card">
+        <div class="report-header">
+            <h5 class="mb-0"><i class="bi bi-card-checklist me-2"></i> Reportes Básicos</h5>
         </div>
-        <div class="card-body">
+        <div class="report-body">
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Pacientes</h5>
-                            <p class="card-text">Listado completo de pacientes registrados</p>
-                            <a th:href="@{/reportes/generar/pacientes}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-people-fill me-2"></i> Pacientes</h5>
+                        <p class="mb-3">Listado completo de pacientes registrados en el sistema</p>
+                        <a th:href="@{/reportes/generar/pacientes}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Médicos</h5>
-                            <p class="card-text">Listado de médicos con sus especialidades</p>
-                            <a th:href="@{/reportes/generar/medicos}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-heart-pulse me-2"></i> Médicos</h5>
+                        <p class="mb-3">Listado de médicos con sus especialidades</p>
+                        <a th:href="@{/reportes/generar/medicos}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Consultas</h5>
-                            <p class="card-text">Historial de consultas realizadas</p>
-                            <a th:href="@{/reportes/generar/consultas}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-clipboard2-pulse me-2"></i> Consultas</h5>
+                        <p class="mb-3">Historial completo de consultas realizadas</p>
+                        <a th:href="@{/reportes/generar/consultas}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
             </div>
@@ -120,37 +167,46 @@
     </div>
 
     <!-- Reportes Intermedios -->
-    <div class="card card-report">
-        <div class="card-header report-header">
-            <h5 class="mb-0"><i class="bi bi-bar-chart-line me-2"></i>Reportes Analíticos</h5>
+    <div class="report-card">
+        <div class="report-header">
+            <h5 class="mb-0"><i class="bi bi-bar-chart-line me-2"></i> Reportes Analíticos</h5>
         </div>
-        <div class="card-body">
+        <div class="report-body">
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Consultas por Médico</h5>
-                            <p class="card-text">Agrupación de consultas por profesional</p>
-                            <a th:href="@{/reportes/generar/consultas-medico}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-person-badge me-2"></i> Consultas por Médico</h5>
+                        <p class="mb-3">Consultas agrupadas por profesional médico</p>
+                        <a th:href="@{/reportes/generar/consultas-medico}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Exámenes</h5>
-                            <p class="card-text">Resultados de exámenes realizados</p>
-                            <a th:href="@{/reportes/generar/examenes}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-microscope me-2"></i> Exámenes</h5>
+                        <p class="mb-3">Resultados de exámenes con datos de consulta</p>
+                        <a th:href="@{/reportes/generar/examenes}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Métodos Anticonceptivos</h5>
-                            <p class="card-text">Uso de métodos anticonceptivos</p>
-                            <a th:href="@{/reportes/generar/metodos}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-calendar-heart me-2"></i> Ciclos</h5>
+                        <p class="mb-3">Registro de ciclos menstruales por paciente</p>
+                        <a th:href="@{/reportes/generar/ciclos}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-graph-up me-2"></i> Estadísticas</h5>
+                        <p class="mb-3">Métricas de consultas por especialidad</p>
+                        <a th:href="@{/reportes/generar/estadisticas}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
             </div>
@@ -158,37 +214,37 @@
     </div>
 
     <!-- Reportes Complejos -->
-    <div class="card card-report">
-        <div class="card-header report-header">
-            <h5 class="mb-0"><i class="bi bi-graph-up me-2"></i>Reportes Avanzados</h5>
+    <div class="report-card">
+        <div class="report-header">
+            <h5 class="mb-0"><i class="bi bi-diagram-3 me-2"></i> Reportes Avanzados</h5>
         </div>
-        <div class="card-body">
+        <div class="report-body">
             <div class="row">
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Historial Completo</h5>
-                            <p class="card-text">Pacientes con su historial clínico</p>
-                            <a th:href="@{/reportes/generar/pacientes-completo}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-file-medical me-2"></i> Pacientes Activos</h5>
+                        <p class="mb-3">Pacientes con consultas recientes (6 meses)</p>
+                        <a th:href="@{/reportes/generar/pacientes-completo}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Ciclos Menstruales</h5>
-                            <p class="card-text">Estadísticas de ciclos menstruales</p>
-                            <a th:href="@{/reportes/generar/ciclos}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-star-fill me-2"></i> Médicos Destacados</h5>
+                        <p class="mb-3">Médicos con consultas sobre el promedio</p>
+                        <a th:href="@{/reportes/generar/medicos-top}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
-                <div class="col-md-4 mb-3">
-                    <div class="card h-100 border-0">
-                        <div class="card-body">
-                            <h5 class="card-title">Efectividad Métodos</h5>
-                            <p class="card-text">Análisis de efectividad</p>
-                            <a th:href="@{/reportes/generar/efectividad}" class="btn btn-report">Generar PDF</a>
-                        </div>
+                <div class="col-md-4 mb-4">
+                    <div class="h-100 p-3">
+                        <h5 class="report-title"><i class="bi bi-exclamation-triangle me-2"></i> Ciclos Irregulares</h5>
+                        <p class="mb-3">Pacientes con variación en duración de ciclos</p>
+                        <a th:href="@{/reportes/generar/ciclos-irregulares}" class="btn btn-report">
+                            <i class="bi bi-file-earmark-pdf"></i> Generar PDF
+                        </a>
                     </div>
                 </div>
             </div>
@@ -198,14 +254,12 @@
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Animación de partículas similar a tu página de inicio
     document.addEventListener('DOMContentLoaded', function() {
-        const canvas = document.createElement('canvas');
         const container = document.getElementById('particles-js');
-        canvas.style.position = 'fixed';
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'absolute';
         canvas.style.top = '0';
         canvas.style.left = '0';
-        canvas.style.zIndex = '-1';
         container.appendChild(canvas);
 
         canvas.width = container.offsetWidth;
@@ -215,19 +269,20 @@
         const particles = [];
         const particleCount = Math.floor(canvas.width / 10);
 
+        // Crear partículas
         for (let i = 0; i < particleCount; i++) {
             particles.push({
                 x: Math.random() * canvas.width,
                 y: Math.random() * canvas.height,
                 size: Math.random() * 3 + 1,
-                speedX: Math.random() * 2 - 1,
-                speedY: Math.random() * 2 - 1
+                speedX: (Math.random() - 0.5) * 0.5,
+                speedY: (Math.random() - 0.5) * 0.5
             });
         }
 
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(216, 27, 96, 0.5)';
+            ctx.fillStyle = 'rgba(216, 27, 96, 0.15)';
 
             particles.forEach(p => {
                 ctx.beginPath();

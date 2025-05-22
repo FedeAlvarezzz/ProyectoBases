@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              name="medicos" uuid="b7d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f">
+    <!-- Similar estructura a pacientes.jrxml pero con campos de médico -->
+    <queryString>
+        <![CDATA[SELECT m FROM Medico m ORDER BY m.apellido]]>
+    </queryString>
+
+    <field name="cedula" class="java.lang.Integer"/>
+    <field name="nombre" class="java.lang.String"/>
+    <field name="apellido" class="java.lang.String"/>
+    <field name="especialidad" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+
+    <!-- Resto de la estructura similar al anterior -->
+</jasperReport>

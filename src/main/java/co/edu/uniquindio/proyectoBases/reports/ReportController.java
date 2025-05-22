@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.ByteArrayInputStream;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/reportes")
@@ -24,19 +25,35 @@ public class ReportController {
 
     @GetMapping
     public String mostrarPaginaReportes() {
-        return "reportes/reportes"; // Esto apunta a templates/reportes/reportes.html
+        return "reportes/reportes";
     }
 
     @GetMapping("/generar/{tipo}")
-    public ResponseEntity<InputStreamResource> generarReporte(@PathVariable String tipo) throws FileNotFoundException, JRException {
-        byte[] reporte = reportService.exportReportToPdf(tipo);
+    public ResponseEntity<InputStreamResource> generarReporte(@PathVariable String tipo)
+            throws FileNotFoundException, JRException {
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "inline; filename=" + tipo + ".pdf");
+        byte[] reporte;
 
-        return ResponseEntity.ok()
-                .headers(headers)
-                .contentType(MediaType.APPLICATION_PDF)
-                .body(new InputStreamResource(new ByteArrayInputStream(reporte)));
+        try {
+            // Para reportes que no necesitan parámetros
+            if (tipo.equals("pacientes-completo")) {
+                // Llamamos al metodo con dos parámetros
+                reporte = reportService.exportReportToPdf(tipo, LocalDate.now().minusMonths(6));
+            } else {
+                // Llamamos al metodo con un solo parámetro
+                reporte = reportService.exportReportToPdf(tipo);
+            }
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-Disposition", "inline; filename=" + tipo + ".pdf");
+
+            return ResponseEntity.ok()
+                    .headers(headers)
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .body(new InputStreamResource(new ByteArrayInputStream(reporte)));
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al generar el reporte: " + e.getMessage(), e);
+        }
     }
 }

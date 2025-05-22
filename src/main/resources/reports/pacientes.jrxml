@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports
+              http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="pacientes" pageWidth="595" pageHeight="842"
+              columnWidth="555" leftMargin="20" rightMargin="20"
+              topMargin="20" bottomMargin="20" uuid="a6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f">
+
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+
+    <parameter name="createdBy" class="java.lang.String"/>
+
+    <queryString>
+        <![CDATA[SELECT p FROM Paciente p]]>
+    </queryString>
+
+    <field name="cedula" class="java.lang.Integer"/>
+    <field name="nombre" class="java.lang.String"/>
+    <field name="apellido" class="java.lang.String"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="telefono" class="java.lang.String"/>
+    <field name="grupoSanguineo" class="java.lang.String"/>
+
+    <title>
+        <band height="79">
+            <staticText>
+                <reportElement x="0" y="0" width="555" height="30" uuid="b6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textElement textAlignment="Center" verticalAlignment="Middle">
+                    <font size="18" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Reporte de Pacientes]]></text>
+            </staticText>
+        </band>
+    </title>
+
+    <columnHeader>
+        <band height="30">
+            <staticText>
+                <reportElement x="0" y="0" width="100" height="30" uuid="d6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <text><![CDATA[Cédula]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="100" y="0" width="150" height="30" uuid="e6d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <text><![CDATA[Nombre]]></text>
+            </staticText>
+            <!-- Más columnas... -->
+        </band>
+    </columnHeader>
+
+    <detail>
+        <band height="25">
+            <textField>
+                <reportElement x="0" y="0" width="100" height="25" uuid="26d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textFieldExpression><![CDATA[$F{cedula}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="0" width="150" height="25" uuid="36d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f"/>
+                <textFieldExpression><![CDATA[$F{nombre} + " " + $F{apellido}]]></textFieldExpression>
+            </textField>
+            <!-- Más campos... -->
+        </band>
+    </detail>
+</jasperReport>

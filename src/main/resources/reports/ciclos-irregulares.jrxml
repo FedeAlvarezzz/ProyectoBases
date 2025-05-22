@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              name="ciclos-irregulares" uuid="37d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f">
+    <queryString>
+        <![CDATA[SELECT c.paciente FROM Ciclo c WHERE c.paciente.cedula IN
+                (SELECT c2.paciente.cedula FROM Ciclo c2 GROUP BY c2.paciente.cedula
+                HAVING MAX(c2.duracion) - MIN(c2.duracion) > 5)
+                GROUP BY c.paciente.cedula]]>
+    </queryString>
+
+    <field name="cedula" class="java.lang.Integer"/>
+    <field name="nombre" class="java.lang.String"/>
+    <field name="apellido" class="java.lang.String"/>
+    <field name="fechaNacimiento" class="java.time.LocalDate"/>
+
+    <!-- Resto de la estructura -->
+</jasperReport>

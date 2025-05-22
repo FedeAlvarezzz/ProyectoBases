@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              name="consultas" uuid="c7d0a517-1e7a-4b6a-9f6a-1a2b3c4d5e6f">
+    <queryString>
+        <![CDATA[SELECT c FROM Consulta c ORDER BY c.fecha DESC, c.hora DESC]]>
+    </queryString>
+
+    <field name="idConsulta" class="java.lang.Long"/>
+    <field name="fecha" class="java.time.LocalDate"/>
+    <field name="hora" class="java.time.LocalTime"/>
+    <field name="motivo" class="java.lang.String"/>
+    <field name="valor" class="java.lang.Double"/>
+
+    <!-- Resto de la estructura -->
+</jasperReport>
