@@ -42,4 +42,9 @@ public class MetodoAnticonceptivo {
     @Size(max = 500, message = "Las restricciones no pueden exceder los 500 caracteres")
     @Column(name = "restricciones", length = 500)
     private String restricciones;
+
+    @ManyToOne
+    @JoinColumn(name = "id_historia_clinica") // este es el nombre de la columna en la BD
+    private HistoriaClinica historiaClinica;
+
 }

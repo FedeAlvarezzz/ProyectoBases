@@ -32,7 +32,7 @@ public class PacienteServiceImpl implements PacienteService {
     }
 
     @Override
-    public Optional<Paciente> obtenerPaciente(Integer cedula) {
+    public Paciente obtenerPaciente(Integer cedula) {
         if (!pacienteRepo.existsByCedula(cedula)) {
             throw new RuntimeException("No existe un paciente con esa cédula");
         }
@@ -58,8 +58,16 @@ public class PacienteServiceImpl implements PacienteService {
     @Override
     public void eliminarPaciente(Integer cedula) {
 
-        Paciente paciente = pacienteRepo.findByCedula(cedula)
-                .orElseThrow(() -> new RuntimeException("No existe un paciente con esa cédula"));
+        Paciente paciente = pacienteRepo.findByCedula(cedula);
+        if (paciente == null) {
+            throw new RuntimeException("No existe un paciente con esa cédula");
+        }
+        if (paciente.getEstado() == EstadoUsuario.ELIMINADO) {
+            throw new RuntimeException("El paciente ya está eliminado");
+        }
+        if (!paciente.getConsultas().isEmpty()) {
+            throw new RuntimeException("No se puede eliminar un paciente con consultas asociadas");
+        }
 
         paciente.setEstado(EstadoUsuario.ELIMINADO);
         pacienteRepo.save(paciente);

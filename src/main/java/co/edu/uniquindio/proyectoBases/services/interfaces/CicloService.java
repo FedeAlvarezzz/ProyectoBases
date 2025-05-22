@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface CicloService {
     Ciclo crearCiclo(Ciclo ciclo);
-    Optional<Ciclo> obtenerCiclo(int idCiclo);
+    Ciclo obtenerCiclo(Integer idCiclo);
     Ciclo actualizarCiclo(Ciclo ciclo);
-    void eliminarCiclo(int idCiclo);
+    void eliminarCiclo(Integer idCiclo);
     List<Ciclo> listarCiclos();
 }

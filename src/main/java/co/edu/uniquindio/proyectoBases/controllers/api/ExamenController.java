@@ -22,19 +22,19 @@ public class ExamenController {
     }
 
     @GetMapping("/obtener-examen/{idExamen}")
-    public ResponseEntity<Optional<Examen>> obtenerExamen(@PathVariable String idExamen) {
+    public ResponseEntity<Optional<Examen>> obtenerExamen(@PathVariable Long idExamen) {
         Optional<Examen> examen = examenService.obtenerExamen(idExamen);
         return ResponseEntity.ok(examen);
     }
 
     @PutMapping("/actualizar-examen/{idExamen}")
-    public ResponseEntity<Examen> actualizarExamen(@PathVariable String idExamen, @Valid @RequestBody Examen examen) {
+    public ResponseEntity<Examen> actualizarExamen(@PathVariable Long idExamen, @Valid @RequestBody Examen examen) {
         examen.setIdExamen(idExamen);
         return ResponseEntity.ok(examenService.actualizarExamen(examen));
     }
 
     @DeleteMapping("/eliminar-examen/{idExamen}")
-    public ResponseEntity<Void> eliminarExamen(@PathVariable String idExamen) {
+    public ResponseEntity<Void> eliminarExamen(@PathVariable Long idExamen) {
         examenService.eliminarExamen(idExamen);
         return ResponseEntity.noContent().build();
     }

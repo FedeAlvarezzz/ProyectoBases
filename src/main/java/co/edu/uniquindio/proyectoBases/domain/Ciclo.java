@@ -38,4 +38,9 @@ public class Ciclo {
     @Max(value = 5, message = "La intensidad máxima es 5")
     @Column(name = "intensidad", nullable = false)
     private int intensidad;
+
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
+
 }

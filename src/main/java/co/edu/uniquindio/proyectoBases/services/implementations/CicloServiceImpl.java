@@ -23,7 +23,7 @@ public class CicloServiceImpl implements CicloService {
     }
 
     @Override
-    public Optional<Ciclo> obtenerCiclo(int idCiclo) {
+    public Ciclo obtenerCiclo(Integer idCiclo) {
         if (!cicloRepo.existsByIdCiclo(idCiclo)) {
             throw new RuntimeException("No existe un ciclo con ese ID");
         }
@@ -39,7 +39,7 @@ public class CicloServiceImpl implements CicloService {
     }
 
     @Override
-    public void eliminarCiclo(int idCiclo) {
+    public void eliminarCiclo(Integer idCiclo) {
         if (!cicloRepo.existsByIdCiclo(idCiclo)) {
             throw new RuntimeException("No existe un ciclo con ese ID");
         }

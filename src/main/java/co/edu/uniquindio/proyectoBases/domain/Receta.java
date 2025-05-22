@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table( name = "receta" )
+@Table(name = "receta")
 @Getter
 @Setter
 public class Receta {
@@ -29,8 +29,7 @@ public class Receta {
     @Column(name = "observacion", nullable = false)
     private String observacion;
 
-    @OneToMany
-    @JoinColumn(name = "idMedicamento")
+    @OneToMany(mappedBy = "receta")
     private List<Medicamento> medicamentos;
 
 }

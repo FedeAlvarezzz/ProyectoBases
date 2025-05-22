@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface PacienteRepo extends JpaRepository<Paciente, Integer> {
 
-    Optional<Paciente> findByCedula(Integer cedula);
+    Paciente findByCedula(Integer cedula);
 
     boolean existsByCedula(Integer cedula);
 
@@ -21,9 +21,4 @@ public interface PacienteRepo extends JpaRepository<Paciente, Integer> {
 
     List<Paciente> findByEstado(EstadoUsuario estado);
 
-    @Query("SELECT p FROM Paciente p WHERE p.estado = :estado ORDER BY p.apellido, p.nombre")
-    List<Paciente> findPacientesByEstado(@Param("estado") EstadoUsuario estado);
-
-    @Query("SELECT p FROM Paciente p WHERE p.nombre LIKE %:nombre% OR p.apellido LIKE %:apellido%")
-    List<Paciente> findPacientesByNombreOrApellido(@Param("nombre") String nombre, @Param("apellido") String apellido);
 }

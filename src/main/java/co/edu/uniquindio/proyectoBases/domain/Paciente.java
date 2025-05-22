@@ -77,6 +77,10 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Consulta> consultas;
 
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "paciente")
     private List<Ciclo> ciclos;
+
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Embarazo> embarazos;
 }

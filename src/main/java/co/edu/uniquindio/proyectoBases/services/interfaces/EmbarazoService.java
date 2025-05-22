@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface EmbarazoService {
     Embarazo crearEmbarazo(Embarazo embarazo);
 
-    Optional<Embarazo> obtenerEmbarazo(String id);
+    Embarazo obtenerEmbarazo(String id);
 
     Embarazo actualizarEmbarazo(Embarazo embarazo);
 

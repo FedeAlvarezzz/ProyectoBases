@@ -22,8 +22,8 @@ public class CicloController {
     }
 
     @GetMapping("/obtener-ciclo/{idCiclo}")
-    public ResponseEntity<Optional<Ciclo>> obtenerCiclo(@PathVariable int idCiclo) {
-        Optional<Ciclo> ciclo = cicloService.obtenerCiclo(idCiclo);
+    public ResponseEntity<Ciclo> obtenerCiclo(@PathVariable int idCiclo) {
+        Ciclo ciclo = cicloService.obtenerCiclo(idCiclo);
         return ResponseEntity.ok(ciclo);
     }
 

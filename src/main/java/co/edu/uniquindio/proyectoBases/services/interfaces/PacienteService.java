@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface PacienteService {
     Paciente crearPaciente(Paciente paciente);
 
-    Optional<Paciente> obtenerPaciente(Integer cedula);
+    Paciente obtenerPaciente(Integer cedula);
 
     Paciente actualizarPaciente(Paciente paciente);
 

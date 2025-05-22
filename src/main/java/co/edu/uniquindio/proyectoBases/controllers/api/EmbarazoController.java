@@ -23,8 +23,8 @@ public class EmbarazoController {
     }
 
     @GetMapping("/obtener-embarazo/{id}")
-    public ResponseEntity<Optional<Embarazo>> obtenerEmbarazo(@PathVariable String id) {
-        Optional<Embarazo> embarazo = embarazoService.obtenerEmbarazo(id);
+    public ResponseEntity<Embarazo> obtenerEmbarazo(@PathVariable String id) {
+        Embarazo embarazo = embarazoService.obtenerEmbarazo(id);
         return ResponseEntity.ok(embarazo);
     }
 

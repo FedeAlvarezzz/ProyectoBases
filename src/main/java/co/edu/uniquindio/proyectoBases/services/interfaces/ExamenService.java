@@ -6,8 +6,8 @@ import java.util.Optional;
 
 public interface ExamenService {
     Examen crearExamen(Examen examen);
-    Optional<Examen> obtenerExamen(String idExamen);
+    Optional<Examen> obtenerExamen(Long idExamen);
     Examen actualizarExamen(Examen examen);
-    void eliminarExamen(String idExamen);
+    void eliminarExamen(Long idExamen);
     List<Examen> listarExamenes();
 }

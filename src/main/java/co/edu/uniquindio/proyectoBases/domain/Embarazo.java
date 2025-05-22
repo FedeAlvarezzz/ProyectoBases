@@ -39,4 +39,14 @@ public class Embarazo {
     @JoinColumn(name = "tipo_embarazo_id", nullable = false)
     @NotNull(message = "El tipo de embarazo es obligatorio")
     private TipoEmbarazo tipoEmbarazo;
+
+    @ManyToOne
+    @JoinColumn(name = "paciente_id", nullable = false)
+    @NotNull(message = "El paciente es obligatorio")
+    private Paciente paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "id_historia_clinica") // o el nombre correcto de la columna en tu base de datos
+    private HistoriaClinica historiaClinica;
+
 }

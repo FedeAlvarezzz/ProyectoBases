@@ -24,11 +24,11 @@ public class EmbarazoServiceImpl implements EmbarazoService {
     }
 
     @Override
-    public Optional<Embarazo> obtenerEmbarazo(String id) {
+    public Embarazo obtenerEmbarazo(String id) {
         if (!embarazoRepo.existsById(id)) {
             throw new RuntimeException("No existe un embarazo con ese ID");
         }
-        return embarazoRepo.findById(id);
+        return embarazoRepo.findByIdEmbarazo(id);
     }
 
     @Override

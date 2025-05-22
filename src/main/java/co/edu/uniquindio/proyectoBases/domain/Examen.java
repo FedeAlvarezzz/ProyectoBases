@@ -18,7 +18,7 @@ public class Examen {
     @NotBlank(message = "El ID del examen es obligatorio")
     @Size(max = 20, message = "El ID del examen no puede exceder los 20 caracteres")
     @Column(name = "id_examen", length = 20, nullable = false, unique = true)
-    private String idExamen;
+    private Long idExamen;
 
     @NotNull(message = "La fecha de resultado no puede ser nula")
     @PastOrPresent(message = "La fecha de resultado debe ser en el pasado o presente")
@@ -41,6 +41,7 @@ public class Examen {
     private String tipoExamen;
 
     @ManyToOne
-    @JoinColumn(name = "id_consulta", nullable = false)
+    @JoinColumn(name = "id_consulta", referencedColumnName = "id_consulta")
     private Consulta consulta;
+
 }

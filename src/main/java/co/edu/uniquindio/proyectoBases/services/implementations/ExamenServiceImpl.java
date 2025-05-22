@@ -23,7 +23,7 @@ public class ExamenServiceImpl implements ExamenService {
     }
 
     @Override
-    public Optional<Examen> obtenerExamen(String idExamen) {
+    public Optional<Examen> obtenerExamen(Long idExamen) {
         if (!examenRepo.existsByIdExamen(idExamen)) {
             throw new RuntimeException("No existe un examen con ese ID");
         }
@@ -39,7 +39,7 @@ public class ExamenServiceImpl implements ExamenService {
     }
 
     @Override
-    public void eliminarExamen(String idExamen) {
+    public void eliminarExamen(Long idExamen) {
         if (!examenRepo.existsByIdExamen(idExamen)) {
             throw new RuntimeException("No existe un examen con ese ID");
         }

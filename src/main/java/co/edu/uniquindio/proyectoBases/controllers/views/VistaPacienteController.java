@@ -51,14 +51,14 @@ public class VistaPacienteController {
 
     @GetMapping("/editar/{cedula}")
     public String mostrarFormularioEdicion(@PathVariable Integer cedula, Model model) {
-        Optional<Paciente> pacienteOpt = pacienteService.obtenerPaciente(cedula);
+        Paciente pacienteOpt = pacienteService.obtenerPaciente(cedula);
 
-        if (pacienteOpt.isPresent()) {
+        /*if (pacienteOpt.isPresent()) {
             model.addAttribute("paciente", pacienteOpt.get());
         }else {
             model.addAttribute("mensajeError", "Paciente no encontrado");
             return "error"; // crea una vista error.html o muestra el mensaje en la misma
-        }
+        }*/
 
         return "pacientes/editar";
     }
@@ -75,33 +75,35 @@ public class VistaPacienteController {
 
     @GetMapping("/eliminar/{cedula}")
     public String eliminarPaciente(@PathVariable Integer cedula, Model model) {
-        Optional<Paciente> pacienteOpt = pacienteService.obtenerPaciente(cedula);
+        Paciente pacienteOpt = pacienteService.obtenerPaciente(cedula);
 
-        if (pacienteOpt.isPresent()) {
+        /*if (pacienteOpt.isPresent()) {
             pacienteService.eliminarPaciente(cedula);
             model.addAttribute("mensajeExito", "Paciente eliminado exitosamente");
         } else {
             model.addAttribute("mensajeError", "Paciente no encontrado");
         }
 
-        return "redirect:/pacientes";
+        return "redirect:/pacientes";*/
+        return "pacientes/listar";
     }
 
 
     @GetMapping("/{cedula}")
     public String mostrarPerfilPaciente(@PathVariable Integer cedula, Model model) {
-        Optional<Paciente> pacienteOpt = pacienteService.obtenerPaciente(cedula);
+        Paciente pacienteOpt = pacienteService.obtenerPaciente(cedula);
 
-        if (pacienteOpt.isPresent()) {
+        /*if (pacienteOpt.isPresent()) {
             model.addAttribute("paciente", pacienteOpt.get());
         } else {
             model.addAttribute("mensajeError", "Paciente no encontrado");
             return "error"; // crea una vista error.html o muestra el mensaje en la misma
-        }
+        }*/
 
         return "pacientes/perfil";
     }
-
-
-
 }
+
+
+
+

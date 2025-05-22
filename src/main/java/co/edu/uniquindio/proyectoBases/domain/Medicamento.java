@@ -1,8 +1,13 @@
 package co.edu.uniquindio.proyectoBases.domain;
 
-import jakarta.validation.constraints.*;
+import co.edu.uniquindio.proyectoBases.domain.Receta;
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -13,7 +18,6 @@ import lombok.*;
 public class Medicamento {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_medicamento")
     private Integer idMedicamento;
 

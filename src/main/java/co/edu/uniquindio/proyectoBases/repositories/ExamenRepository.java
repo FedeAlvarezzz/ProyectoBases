@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ExamenRepository extends JpaRepository<Examen, String> {
-    Optional<Examen> findByIdExamen(String idExamen);
-    boolean existsByIdExamen(String idExamen);
+public interface ExamenRepository extends JpaRepository<Examen, Long> {
+    Optional<Examen> findByIdExamen(Long idExamen);
+    boolean existsByIdExamen(Long idExamen);
 }
