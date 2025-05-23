@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Controles Prenatales</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: rgba(64, 58, 62, 0.85);
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            z-index: -1;
+        }
+
+        h1 {
+            color: #ff4081;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            background-color: #ffffffee;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: #ff4081;
+            border-color: #ff4081;
+        }
+
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #ff4081;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ff4081;
+            border: 3px solid white;
+        }
+
+        .timeline-date {
+            font-weight: bold;
+            color: #ff4081;
+        }
+
+        .badge-pill {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragmentos :: barraNavegacion}"></div>
+
+<div class="container py-5">
+    <h1 class="text-center fw-bold">Controles Prenatales</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-12 card-container">
+            <div class="d-flex justify-content-between mb-4">
+                <a th:href="@{/embarazos/seguimiento/} + ${embarazo.idEmbarazo}" class="btn btn-outline-secondary">
+                    Volver al seguimiento
+                </a>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#nuevoControlModal">
+                    Agregar Control
+                </button>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-pink text-white">
+                    Información del Embarazo
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><strong>Paciente:</strong>
+                                <span th:text="${embarazo.paciente.nombreCompleto}"></span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Semanas:</strong>
+                                <span class="badge bg-primary badge-pill"
+                                      th:text="${semanasTranscurridas} + ' semanas'"></span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>ID Embarazo:</strong>
+                                <span th:text="${embarazo.idEmbarazo}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-pink text-white">
+                    Historial de Controles
+                </div>
+                <div class="card-body">
+                    <div class="timeline">
+                        <!-- Ejemplo estático - deberías reemplazar con datos dinámicos -->
+                        <div class="timeline-item">
+                            <div class="timeline-date">Semana 8 - 15/03/2023</div>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>Primer Control Prenatal</h5>
+                                    <p><strong>Presión arterial:</strong> 120/80 mmHg</p>
+                                    <p><strong>Peso:</strong> 62 kg</p>
+                                    <p><strong>Notas:</strong> Se indicó ácido fólico y hierro. Próximo control en 4 semanas.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item">
+                            <div class="timeline-date">Semana 12 - 12/04/2023</div>
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5>Control de Primer Trimestre</h5>
+                                    <p><strong>Presión arterial:</strong> 118/78 mmHg</p>
+                                    <p><strong>Peso:</strong> 63.5 kg</p>
+                                    <p><strong>Exámenes:</strong> Ecografía realizada, todo normal.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para nuevo control -->
+<div

@@ -9,9 +9,15 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import java.util.List;
+
 @Repository
-public interface MedicamentoRepository extends JpaRepository<Medicamento, Integer> {
-    Medicamento findByIdMedicamento(Integer idMedicamento);
+public interface MedicamentoRepository extends JpaRepository<Medicamento, String> {
+    Medicamento findByIdMedicamento(String idMedicamento);
+
+    Object findByNombreMedicamento(String nombreMedicamento);
+
+    List<Medicamento> findAllByIdMedicamento(String idMedicamento);
 
 
     @Query("SELECT med FROM Medicamento med ORDER BY med.nombreMedicamento")

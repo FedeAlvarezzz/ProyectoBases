@@ -24,7 +24,7 @@ public class MedicamentoServiceImpl implements MedicamentoService {
     }
 
     @Override
-    public Medicamento obtenerMedicamento(Integer id) {
+    public Medicamento obtenerMedicamento(String id) {
         if (!medicamentoRepository.existsById(id)) {
             throw new RuntimeException("No existe un medicamento con ese ID");
         }
@@ -40,7 +40,7 @@ public class MedicamentoServiceImpl implements MedicamentoService {
     }
 
     @Override
-    public void eliminarMedicamento(Integer id) {
+    public void eliminarMedicamento(String id) {
         if (!medicamentoRepository.existsById(id)) {
             throw new RuntimeException("No existe un medicamento con ese ID");
         }
@@ -50,5 +50,11 @@ public class MedicamentoServiceImpl implements MedicamentoService {
     @Override
     public List<Medicamento> listarMedicamentos() {
         return medicamentoRepository.findAll();
+    }
+
+    @Override
+    public List<Medicamento> obtenerMedicamentosPorIds(List<Long> medicamentoIds) {
+
+        return medicamentoRepository.findAllByIdMedicamento(medicamentoIds.toString());
     }
 }

@@ -17,7 +17,11 @@ import java.util.List;
 public class Receta {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idReceta;
+
+    @ManyToOne
+    private Paciente paciente;
 
     @Column(name = "fechaEmision", nullable = false)
     @PastOrPresent

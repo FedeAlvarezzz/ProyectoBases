@@ -11,4 +11,5 @@ public interface RecetaService {
     List<Receta> listarRecetas();
     void eliminarReceta(Long id);
     Receta actualizarReceta(Receta receta);
+    Receta obtenerRecetaPorPaciente(Long idPaciente);
 }

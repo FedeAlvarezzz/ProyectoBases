@@ -15,8 +15,7 @@ import java.time.LocalDate;
 public class Examen {
 
     @Id
-    @NotBlank(message = "El ID del examen es obligatorio")
-    @Size(max = 20, message = "El ID del examen no puede exceder los 20 caracteres")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_examen", length = 20, nullable = false, unique = true)
     private Long idExamen;
 

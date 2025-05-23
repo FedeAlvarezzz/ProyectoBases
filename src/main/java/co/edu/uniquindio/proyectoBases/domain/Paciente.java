@@ -80,7 +80,9 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     private List<Ciclo> ciclos;
 
-
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Embarazo> embarazos;
+
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Receta> recetas;
 }

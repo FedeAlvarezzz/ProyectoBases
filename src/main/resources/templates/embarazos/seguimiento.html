@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Seguimiento de Embarazo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: rgba(64, 58, 62, 0.85);
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            z-index: -1;
+        }
+
+        h1 {
+            color: #ff4081;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .card-container {
+            background-color: #ffffffee;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: #ff4081;
+            border-color: #ff4081;
+        }
+
+        .container {
+            max-width: 900px;
+            margin-top: 50px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .progress {
+            height: 30px;
+            background-color: #f8bbd0;
+        }
+
+        .progress-bar {
+            background-color: #ff4081;
+            transition: width 0.5s ease;
+        }
+
+        .milestone {
+            border-left: 3px solid #ff4081;
+            padding-left: 15px;
+            margin-bottom: 15px;
+        }
+
+        .milestone h5 {
+            color: #ff4081;
+        }
+
+        .badge-pill {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<div th:replace="~{fragmentos :: barraNavegacion}"></div>
+
+<div class="container py-5">
+    <h1 class="text-center fw-bold">Seguimiento de Embarazo</h1>
+
+    <div class="row justify-content-center">
+        <div class="col-12 card-container">
+            <div class="d-flex justify-content-between mb-4">
+                <a th:href="@{/embarazos/paciente/} + ${embarazo.paciente.cedula}" class="btn btn-outline-secondary">
+                    Volver a embarazos
+                </a>
+                <a th:href="@{/embarazos/editar/} + ${embarazo.idEmbarazo}" class="btn btn-primary">
+                    Editar Embarazo
+                </a>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-pink text-white">
+                    Información Básica
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <p><strong>Paciente:</strong>
+                                <span th:text="${embarazo.paciente.nombreCompleto}"></span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Fecha Concepción:</strong>
+                                <span th:text="${#temporals.format(embarazo.fechaConcepcion, 'dd/MM/yyyy')}"></span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Fecha Parto Esperado:</strong>
+                                <span th:text="${#temporals.format(embarazo.fechaPartoEsperado, 'dd/MM/yyyy')}"></span></p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4">
+                            <p><strong>Semanas Gestación:</strong>
+                                <span class="badge bg-primary badge-pill"
+                                      th:text="${semanasTranscurridas} + ' semanas'"></span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>Tipo:</strong>
+                                <span th:text="${embarazo.tipoEmbarazo.nombre}"></span></p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>ID Embarazo:</strong>
+                                <span th:text="${embarazo.idEmbarazo}"></span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mb-4">
+                <div class="card-header bg-pink text-white">
+                    Progreso del Embarazo
+                </div>
+                <div class="card-body">
+                    <div class="progress mb-3" style="height: 30px;">
+                        <div class="progress-bar progress-bar-striped"
+                             role="progressbar"
+                             th:style="'width: ' + ${(semanasTranscurridas / 40) * 100} + '%;'"
+                             th:attr="aria-valuenow=${semanasTranscurridas}"
+                             aria-valuemin="0"
+                             aria-valuemax="40">
+                            <span th:text="${semanasTranscurridas} + ' semanas'"></span>
+                        </div>
+                    </div>
+                    <p class="text-center">
+                        <span th:if="${semanasTranscurridas < 40}"
+                              th:text="'Faltan ' + (40 - semanasTranscurridas) + ' semanas para la fecha estimada de parto'"></span>
+                        <span th:if="${semanasTranscurridas >= 40}" class="text-danger">
+                            ¡El embarazo ha alcanzado su término!
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-pink text-white">
+                    Próximos Hitos Importantes
+                </div>
+                <div class="card-body">
+                    <div th:if="${semanasTranscurridas < 12}" class="milestone">
+                        <h5>Semana 12</h5>
+                        <p>Ecografía del primer trimestre. Examen de screening bioquímico.</p>
+                    </div>
+                    <div th:if="${semanasTranscurridas < 20}" class="milestone">
+                        <h5>Semana 20</h5>
+                        <p>Ecografía morfológica. Revisión de anatomía fetal.</p>
+                    </div>
+                    <div th:if="${semanasTranscurridas < 28}" class="milestone">
+                        <h5>Semana 28</h5>
+                        <p>Test de O'Sullivan para detección de diabetes gestacional.</p>
+                    </div>
+
+                    <a th:href="@{/embarazos/controles/} + ${embarazo.idEmbarazo}"
+                       class="btn btn-primary mt-3">
+                        Ver todos los controles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="particles-js"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.createElement('canvas');
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.zIndex = '-1';
+        document.getElementById('particles-js').appendChild(canvas);
+
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        const particleCount = 100;
+
+        for (let i = 0; i < particleCount; i++) {
+            particles.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                size: Math.random() * 3 + 1,
+                speedX: Math.random() * 2 - 1,
+                speedY: Math.random() * 2 - 1
+            });
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgb(255,0,165)';
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.x += p.speedX;
+                p.y += p.speedY;
+
+                if (p.x < 0 || p.x > canvas.width) p.speedX *= -1;
+                if (p.y < 0 || p.y > canvas.height) p.speedY *= -1;
+            }
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        animateParticles();
+    });
+</script>
+
+</body>
+</html>

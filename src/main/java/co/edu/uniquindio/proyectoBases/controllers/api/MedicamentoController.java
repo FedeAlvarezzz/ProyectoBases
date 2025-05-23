@@ -23,19 +23,19 @@ public class MedicamentoController {
     }
 
     @GetMapping("/obtener-medicamento/{id}")
-    public ResponseEntity<Medicamento> obtenerMedicamento(@PathVariable Integer id) {
+    public ResponseEntity<Medicamento> obtenerMedicamento(@PathVariable String id) {
         Medicamento medicamento = medicamentoService.obtenerMedicamento(id);
         return ResponseEntity.ok(medicamento);
     }
 
     @PutMapping("/actualizar-medicamento/{id}")
-    public ResponseEntity<Medicamento> actualizarMedicamento(@PathVariable Integer id, @Valid @RequestBody Medicamento medicamento) {
+    public ResponseEntity<Medicamento> actualizarMedicamento(@PathVariable String id, @Valid @RequestBody Medicamento medicamento) {
         medicamento.setIdMedicamento(id);
         return ResponseEntity.ok(medicamentoService.actualizarMedicamento(medicamento));
     }
 
     @DeleteMapping("/eliminar-medicamento/{id}")
-    public ResponseEntity<Void> eliminarMedicamento(@PathVariable Integer id) {
+    public ResponseEntity<Void> eliminarMedicamento(@PathVariable String id) {
         medicamentoService.eliminarMedicamento(id);
         return ResponseEntity.noContent().build();
     }

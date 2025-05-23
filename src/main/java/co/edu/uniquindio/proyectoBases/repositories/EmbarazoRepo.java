@@ -12,4 +12,6 @@ import java.util.List;
 public interface EmbarazoRepo extends JpaRepository<Embarazo, String> {
 
     Embarazo findByIdEmbarazo(String idEmbarazo);
+
+    List<Embarazo> findByPacienteCedula(Integer cedulaPaciente);
 }

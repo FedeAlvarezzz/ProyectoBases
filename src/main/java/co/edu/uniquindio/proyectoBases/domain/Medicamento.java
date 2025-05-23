@@ -1,6 +1,7 @@
 package co.edu.uniquindio.proyectoBases.domain;
 
 import co.edu.uniquindio.proyectoBases.domain.Receta;
+import co.edu.uniquindio.proyectoBases.domain.enums.ViaAdministracion;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -21,7 +22,7 @@ public class Medicamento {
     @NotBlank(message = "El ID del medicamento es obligatorio")
     @Size(min = 5, max = 20, message = "El ID del medicamento debe tener entre 5 y 20 caracteres")
     @Column(name = "id_medicamento")
-    private Integer idMedicamento;
+    private String idMedicamento;
 
     @NotBlank(message = "El nombre del medicamento es obligatorio")
     @Size(min = 5, max = 100, message = "El nombre del medicamento debe tener entre 5 y 100 caracteres")
@@ -48,7 +49,11 @@ public class Medicamento {
     @Column(name = "recomendaciones", length = 500, nullable = false)
     private String recomendaciones;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "via_administracion", nullable = false)
+    private ViaAdministracion viaAdministracion;
+
     @ManyToOne
-    @JoinColumn(name = "id_receta", nullable = false)
+    @JoinColumn(name = "id_receta", nullable = true)
     private Receta receta;
 }

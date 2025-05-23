@@ -8,11 +8,13 @@ import java.util.Optional;
 public interface MedicamentoService {
     Medicamento crearMedicamento(Medicamento medicamento);
 
-    Medicamento obtenerMedicamento(Integer id);
+    Medicamento obtenerMedicamento(String id);
 
     Medicamento actualizarMedicamento(Medicamento medicamento);
 
-    void eliminarMedicamento(Integer id);
+    void eliminarMedicamento(String id);
 
     List<Medicamento> listarMedicamentos();
+
+    List<Medicamento> obtenerMedicamentosPorIds(List<Long> medicamentoIds);
 }

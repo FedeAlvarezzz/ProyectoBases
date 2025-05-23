@@ -13,7 +13,6 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-
 @Controller
 @RequestMapping("/embarazos")
 @RequiredArgsConstructor
@@ -22,59 +21,117 @@ public class VistaEmbarazoController {
     private final EmbarazoService embarazoService;
     private final PacienteService pacienteService;
 
-    @GetMapping("/paciente/{cedulaPaciente}")
-    public String listarEmbarazosPorPaciente(@PathVariable Integer cedulaPaciente, Model model) {
-        //model.addAttribute("embarazos", embarazoService.listarPorPaciente(cedulaPaciente));
-        model.addAttribute("paciente", pacienteService.obtenerPaciente(cedulaPaciente));
+    // ------------------- LISTAR -------------------
+
+    /**
+     * Lista todos los embarazos y pacientes.
+     * Vista: embarazos/listar.html
+     */
+    @GetMapping
+    public String listarEmbarazos(Model model) {
+        List<Embarazo> embarazos = embarazoService.listarEmbarazos();
+        List<Paciente> pacientes = pacienteService.listarPacientes();
+        model.addAttribute("embarazos", embarazos);
+        model.addAttribute("listaPacientes", pacientes);
+        return "embarazos/seleccionar";
+    }
+
+    /**
+     * Lista los embarazos de un paciente específico.
+     * Vista: embarazos/listar.html
+     */
+    @GetMapping("/paciente/{cedula}")
+    public String listarPorPaciente(@PathVariable("cedula") Integer cedula, Model model) {
+        List<Embarazo> embarazos = embarazoService.listarPorPaciente(cedula);
+        Paciente paciente = pacienteService.obtenerPaciente(cedula);
+        model.addAttribute("embarazos", embarazos);
+        model.addAttribute("paciente", paciente);
         return "embarazos/listar";
     }
 
-    @GetMapping("/nuevo/{cedulaPaciente}")
-    public String mostrarFormularioRegistro(@PathVariable Integer cedulaPaciente, Model model) {
+    // ------------------- CREAR -------------------
+
+    /**
+     * Muestra el formulario para registrar un nuevo embarazo.
+     * Vista: embarazos/registrar.html
+     */
+    @GetMapping("/nuevo/{cedula}")
+    public String mostrarFormularioCreacion(@PathVariable("cedula") Integer cedula, Model model) {
         Embarazo embarazo = new Embarazo();
         embarazo.setFechaConcepcion(LocalDate.now());
         embarazo.setFechaPartoEsperado(LocalDate.now().plusWeeks(40));
-
         model.addAttribute("embarazo", embarazo);
-        model.addAttribute("cedulaPaciente", cedulaPaciente);
+        model.addAttribute("cedulaPaciente", cedula);
         return "embarazos/registrar";
     }
 
-    @PostMapping("/guardar")
-    public String guardarEmbarazo(@ModelAttribute Embarazo embarazo,
-                                  @RequestParam Integer cedulaPaciente) {
-        Paciente paciente = pacienteService.obtenerPaciente(cedulaPaciente);
+    /**
+     * Procesa el registro de un nuevo embarazo.
+     */
+    @PostMapping("/crear")
+    public String crearEmbarazo(@ModelAttribute Embarazo embarazo,
+                                @RequestParam("cedulaPaciente") Integer cedula) {
+        Paciente paciente = pacienteService.obtenerPaciente(cedula);
         embarazo.setPaciente(paciente);
         embarazoService.crearEmbarazo(embarazo);
-        return "redirect:/embarazos/paciente/" + cedulaPaciente;
+        return "redirect:/embarazos/paciente/" + cedula;
     }
 
-    @GetMapping("/editar/{idEmbarazo}")
-    public String mostrarFormularioEdicion(@PathVariable String idEmbarazo, Model model) throws Exception {
-        Embarazo embarazo = embarazoService.obtenerEmbarazo(idEmbarazo);
+    // ------------------- EDITAR -------------------
+
+    /**
+     * Muestra el formulario para editar un embarazo existente.
+     * Vista: embarazos/editar.html
+     */
+    @GetMapping("/editar/{id}")
+    public String mostrarFormularioEdicion(@PathVariable("id") String id, Model model) throws Exception {
+        Embarazo embarazo = embarazoService.obtenerEmbarazo(id);
         model.addAttribute("embarazo", embarazo);
+        model.addAttribute("cedulaPaciente", embarazo.getPaciente().getCedula());
+        // Se recomienda pasar la lista de tipos de embarazo si es necesario para el select
+        // model.addAttribute("tiposEmbarazo", embarazoService.listarTiposEmbarazo());
         return "embarazos/editar";
     }
 
+    /**
+     * Procesa la edición de un embarazo.
+     */
     @PostMapping("/actualizar")
     public String actualizarEmbarazo(@ModelAttribute Embarazo embarazo) throws Exception {
         embarazoService.actualizarEmbarazo(embarazo);
         return "redirect:/embarazos/paciente/" + embarazo.getPaciente().getCedula();
     }
 
-    @GetMapping("/seguimiento/{idEmbarazo}")
-    public String verSeguimiento(@PathVariable String idEmbarazo, Model model) throws Exception {
-        Embarazo embarazo = embarazoService.obtenerEmbarazo(idEmbarazo);
+    // ------------------- SEGUIMIENTO -------------------
+
+    /**
+     * Muestra la vista de seguimiento de un embarazo.
+     * Vista: embarazos/seguimiento.html
+     */
+    @GetMapping("/seguimiento/{id}")
+    public String verSeguimiento(@PathVariable("id") String id, Model model) throws Exception {
+        Embarazo embarazo = embarazoService.obtenerEmbarazo(id);
+        long semanasTranscurridas = ChronoUnit.WEEKS.between(embarazo.getFechaConcepcion(), LocalDate.now());
         model.addAttribute("embarazo", embarazo);
-        model.addAttribute("semanasTranscurridas",
-                ChronoUnit.WEEKS.between(embarazo.getFechaConcepcion(), LocalDate.now()));
+        model.addAttribute("semanasTranscurridas", semanasTranscurridas);
         return "embarazos/seguimiento";
     }
 
-    @GetMapping("/controles/{idEmbarazo}")
-    public String verControles(@PathVariable String idEmbarazo, Model model) {
-        model.addAttribute("embarazo", embarazoService.obtenerEmbarazo(idEmbarazo));
-        // Aquí podrías agregar también la lista de controles prenatales si los tienes
+    // ------------------- CONTROLES -------------------
+
+    /**
+     * Muestra la vista de controles prenatales de un embarazo.
+     * Vista: embarazos/controles.html
+     */
+    @GetMapping("/controles/{id}")
+    public String verControles(@PathVariable("id") String id, Model model) throws Exception {
+        Embarazo embarazo = embarazoService.obtenerEmbarazo(id);
+        long semanasTranscurridas = ChronoUnit.WEEKS.between(embarazo.getFechaConcepcion(), LocalDate.now());
+        model.addAttribute("embarazo", embarazo);
+        model.addAttribute("semanasTranscurridas", semanasTranscurridas);
+        // Aquí podrías agregar la lista de controles si la tienes
+        // model.addAttribute("controles", controlService.listarPorEmbarazo(id));
         return "embarazos/controles";
     }
+
 }

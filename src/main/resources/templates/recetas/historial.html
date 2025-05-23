@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial - Sistema de Recetas Médicas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: rgba(64, 58, 62, 0.85);
+            overflow-x: hidden;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            margin-top: 50px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff4081, #e91e63);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 15px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #495057;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+            color: #ff4081;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #ff4081;
+            border-bottom-color: #ff4081;
+        }
+
+        .tab-content {
+            padding: 30px;
+            min-height: 600px;
+        }
+
+        .tab-pane {
+            display: none;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #ff4081;
+            box-shadow: 0 0 0 3px rgba(255, 64, 129, 0.1);
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff4081, #e91e63);
+            color: white;
+            border-color: #ff4081;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 64, 129, 0.3);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #28a745, #1e7e34);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40,167,69,0.3);
+        }
+
+        .btn-warning {
+            background: linear-gradient(135deg, #ffc107, #e0a800);
+            color: #212529;
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border: 1px solid #e9ecef;
+        }
+
+        .card-header {
+            background: #f8f9fa;
+            margin: -20px -20px 20px -20px;
+            padding: 15px 20px;
+            border-radius: 10px 10px 0 0;
+            border-bottom: 1px solid #e9ecef;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th,
+        .table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #495057;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .medicamento-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid #ff4081;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .search-box input {
+            padding-left: 40px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c757d;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .alert-danger {
+            background: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .receta-print {
+            background: white;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .receta-header {
+            text-align: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .receta-content {
+            line-height: 1.8;
+        }
+
+        .medicamento-list {
+            margin: 20px 0;
+        }
+
+        .medicamento-list li {
+            margin-bottom: 10px;
+            padding-left: 20px;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .receta-print, .receta-print * {
+                visibility: visible;
+            }
+            .receta-print {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            .btn {
+                display: none;
+            }
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-vigente {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-vencida {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>🏥 Sistema de Recetas Médicas</h1>
+        <p>Módulo completo para gestión de recetas</p>
+    </div>
+
+    <div class="nav-tabs">
+
+        <a th:href="@{/recetas}" class="nav-tab">
+            📝 Generar Receta
+        </a>
+        <a th:href="@{/recetas/historial}" class="nav-tab">
+            📋 Historial
+        </a>
+        <a th:href="@{/recetas/detalle}" class="nav-tab">
+            🔍 Detalle
+        </a>
+        <a th:href="@{/recetas/imprimir}" class="nav-tab">
+            🖨️ Imprimir
+        </a>>
+    </div>
+
+    <div class="tab-content">
+        <div class="tab-pane active">
+            <div class="card">
+                <div class="card-header">
+                    📋 Historial de Recetas
+                </div>
+
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="buscarReceta" class="form-control" placeholder="Buscar por paciente, ID o fecha...">
+                </div>
+
+                <div class="grid-2">
+                    <div class="form-group">
+                        <label for="filtroFechaInicio">Desde</label>
+                        <input type="date" id="filtroFechaInicio" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="filtroFechaFin">Hasta</label>
+                        <input type="date" id="filtroFechaFin" class="form-control">
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" onclick="filtrarRecetas()">
+                    🔍 Filtrar
+                </button>
+
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Paciente</th>
+                        <th>Fecha Emisión</th>
+                        <th>Fecha Vencimiento</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tablaHistorial">
+                    <tr>
+                        <td>001</td>
+                        <td>Juan Pérez</td>
+                        <td>2024-01-15</td>
+                        <td>2024-04-15</td>
+                        <td><span class="status-badge status-vencida">Vencida</span></td>
+                        <td>
+                            <button class="btn btn-primary" onclick="verDetalleReceta(1)">Ver</button>
+                            <button class="btn btn-success" onclick="imprimirReceta(1)">Imprimir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>002</td>
+                        <td>María García</td>
+                        <td>2024-02-20</td>
+                        <td>2024-12-20</td>
+                        <td><span class="status-badge status-vigente">Vigente</span></td>
+                        <td>
+                            <button class="btn btn-primary" onclick="verDetalleReceta(2)">Ver</button>
+                            <button class="btn btn-success" onclick="imprimirReceta(2)">Imprimir</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>003</td>
+                        <td>Carlos López</td>
+                        <td>2024-03-10</td>
+                        <td>2024-09-10</td>
+                        <td><span class="status-badge status-vigente">Vigente</span></td>
+                        <td>
+                            <button class="btn btn-primary" onclick="verDetalleReceta(3)">Ver</button>
+                            <button class="btn btn-success" onclick="imprimirReceta(3)">Imprimir</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="particles-js"></div>
+<script src="js/particles.js"></script>
+<script src="js/recetas.js"></script>
+</body>
+</html>

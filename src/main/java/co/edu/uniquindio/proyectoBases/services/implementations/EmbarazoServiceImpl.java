@@ -51,4 +51,9 @@ public class EmbarazoServiceImpl implements EmbarazoService {
     public List<Embarazo> listarEmbarazos() {
         return embarazoRepo.findAll();
     }
+
+    @Override
+    public List<Embarazo> listarPorPaciente(Integer cedulaPaciente) {
+        return embarazoRepo.findByPacienteCedula(cedulaPaciente);
+    }
 }

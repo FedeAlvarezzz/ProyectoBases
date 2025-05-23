@@ -15,4 +15,6 @@ public interface EmbarazoService {
     void eliminarEmbarazo(String id);
 
     List<Embarazo> listarEmbarazos();
+
+    List<Embarazo> listarPorPaciente(Integer cedulaPaciente);
 }

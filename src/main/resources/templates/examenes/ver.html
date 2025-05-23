@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Examen - Sistema Médico</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            color: rgba(64, 58, 62, 0.85);
+            overflow-x: hidden;
+        }
+
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin-top: 50px;
+            backdrop-filter: blur(5px);
+            background-color: rgba(255, 255, 255, 0.8); /* fondo oscuro semitransparente */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            color: white; /* texto claro sobre fondo oscuro */
+        }
+
+
+        h1 {
+            color: #ad1457;
+            margin-bottom: 30px;
+        }
+
+        label {
+            color: #880e4f;
+            font-weight: 500;
+        }
+
+        .form-container {
+            background-color: #ffffffcc;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-primary {
+            background-color: #ad1457;
+            border-color: #ad1457;
+        }
+
+        .btn-primary:hover {
+            background-color: #880e4f;
+            border-color: #880e4f;
+        }
+
+        .btn-secondary {
+            margin-top: 10px;
+        }
+
+        .scroll-top-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #f06292;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        .scroll-top-btn:hover {
+            background-color: #ec407a;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{fragmentos :: barraNavegacion}"></div>
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">
+                        <i class="fas fa-microscope me-2"></i>
+                        Detalles del Examen
+                    </h4>
+                    <div>
+                        <a th:href="@{/examenes/editar/{id}(id=${examen.idExamen})}"
+                           class="btn btn-warning btn-sm me-2">
+                            <i class="fas fa-edit me-1"></i>
+                            Editar
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Mensaje de error -->
+                    <div th:if="${error}" class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <span th:text="${error}"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-hashtag me-1"></i>
+                                    ID del Examen:
+                                </label>
+                                <p class="form-control-plaintext border rounded px-3 py-2 bg-light"
+                                   th:text="${examen.idExamen}"></p>
+                            </div>
+                        </div>
+                    </div>
+

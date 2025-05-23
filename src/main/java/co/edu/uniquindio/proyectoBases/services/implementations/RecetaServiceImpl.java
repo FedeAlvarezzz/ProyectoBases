@@ -48,4 +48,14 @@ public class RecetaServiceImpl implements RecetaService {
     public Receta actualizarReceta(Receta receta) {
         return null;
     }
+
+    @Override
+    public Receta obtenerRecetaPorPaciente(Long idPaciente) {
+        List<Receta> recetas = recetaRepository.findByPacienteId(idPaciente);
+        if (recetas.isEmpty()) {
+            throw new RuntimeException("No existe una receta para el paciente con ID: " + idPaciente);
+        }
+        return recetas.getFirst();
+    }
 }
+

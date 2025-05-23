@@ -51,6 +51,6 @@ public class Medico {
     @Enumerated(EnumType.STRING)
     private EstadoUsuario estado;
 
-    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
     private List<Consulta> consultas;
 }
