@@ -36,6 +36,9 @@ public class PacienteController {
         return ResponseEntity.ok(pacienteService.actualizarPaciente(paciente));
     }
 
+
+    
+
     @DeleteMapping("/eliminar-paciente/{cedula}")
     public ResponseEntity<Void> eliminarPaciente(@PathVariable Integer cedula) {
         pacienteService.eliminarPaciente(cedula);
